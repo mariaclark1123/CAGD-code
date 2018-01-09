@@ -1,5 +1,5 @@
 #include "curve.h"
-#include <GL/glut.h>
+#include "string.h"
 
 /* global */
 CubicBezierCurve bezcur;
@@ -38,10 +38,17 @@ void display_callback(void)
 	/* curve */
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	//BezierSurface
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	//annotation
+	glColor3ub(0, 0, 0);
+	glRasterPos2f(10.0f, height - 20);
+	drawString("Bezier Curve Editor");
+	glRasterPos2f(10.0f, height - 40);
+	drawString("---by Fangda Chen");
+
+	//BezierSurface
 	bezcur.DrawCurve2D();
 
 	glutSwapBuffers();
