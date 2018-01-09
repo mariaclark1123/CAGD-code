@@ -1,6 +1,6 @@
 #include "curve.h"
 #include "viewport.h"
-#include <GL/glut.h>
+#include "string.h"
 
 /* global */
 CubicBezierCurve bezcur;
@@ -110,6 +110,12 @@ void display_callback(void)
 	glViewport(0, viewportheight, viewportwidth, viewportheight);
 	glLoadIdentity();
 	gluOrtho2D(0, (double)viewportwidth, 0, (double)viewportheight);
+
+	//annotation
+	glColor3ub(0, 0, 0);
+	glRasterPos2f(10.0f, viewportheight - 20);
+	drawString("XY coordinate");
+
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glBegin(GL_POINTS);
 	for (int i = 0; i < 4; i++)
@@ -133,6 +139,12 @@ void display_callback(void)
 	glViewport(0, 0, viewportwidth, viewportheight);
 	glLoadIdentity();
 	gluOrtho2D(0, (double)viewportwidth, 0, (double)viewportheight);
+
+	//annotation
+	glColor3ub(0, 0, 0);
+	glRasterPos2f(10.0f, viewportheight - 20);
+	drawString("XZ coordinate");
+
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glBegin(GL_POINTS);
 	for (int i = 0; i < 4; i++)
@@ -155,6 +167,12 @@ void display_callback(void)
 	glViewport(viewportwidth, 0, viewportwidth, viewportheight);
 	glLoadIdentity();
 	gluOrtho2D(0, (double)viewportwidth, 0, (double)viewportheight);
+	
+	//annotation
+	glColor3ub(0, 0, 0);
+	glRasterPos2f(10.0f, viewportheight - 20);
+	drawString("YZ coordinate");
+
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glBegin(GL_POINTS);
 	for (int i = 0; i < 4; i++)
@@ -177,10 +195,16 @@ void display_callback(void)
 	glViewport(viewportwidth, viewportheight, viewportwidth, viewportheight);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(25, width / (double)height, 0.1, 25000);
 
+	//annotation
+	glColor3ub(0, 0, 0);
+	glRasterPos2f(10.0f, viewportheight - 20);
+	drawString("Bicubic Bezier Surface");
+
+	gluPerspective(25, width / (double)height, 0.1, 25000);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+		
 	gluLookAt(eye.x, eye.y, eye.z, center.x, center.y, center.z, upVector.x, upVector.y, upVector.z);
 
 	glEnable(GL_DEPTH_TEST);
@@ -371,9 +395,6 @@ int main(int argc, char *argv[])
 
 	init();
 	glutReshapeFunc(reshape_callback);
-
-
-
 	glutMouseFunc(mouse_callback);
 	glutMotionFunc(mouse_move_callback);
 	glutDisplayFunc(display_callback);
